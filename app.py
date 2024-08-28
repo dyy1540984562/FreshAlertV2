@@ -115,4 +115,4 @@ def expired_foods():
     return render_template('food_expired.html', expired_foods=expired_foods)
     
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5001)

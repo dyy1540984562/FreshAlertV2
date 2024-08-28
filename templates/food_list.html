@@ -26,36 +26,86 @@
         <h2>Dashboard</h2>
         <div class="search-bar">
             <form id="search-form" action="{{ url_for('search') }}" method="get">
-                <input type="text" name="query" placeholder="Search foods...">
+                <input type="text" name="query" placeholder="Search foods..." value="{{ search_query if search_query }}">
                 <button type="submit">Search</button>
             </form>
         </div>
+        <h2>Add New Food</h2>
         <form action="{{ url_for('add_food') }}" method="post">
-            <input type="text" name="name" placeholder="Food Name" required>
-            <input type="text" name="label" placeholder="Label" required>
-            <input type="date" name="production_date" required>
-            <input type="number" name="shelf_life" placeholder="Shelf Life (days)" required>
+            <div class="form-group">
+                <label for="food-name">Food Name:</label>
+                <input type="text" id="food-name" name="name" placeholder="Enter food name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="food-label">Label:</label>
+                <input type="text" id="food-label" name="label" placeholder="Enter label (optional)">
+            </div>
+            
+            <div class="form-group">
+                <label for="production-date">Production Date:</label>
+                <input type="date" id="production-date" name="production_date" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="shelf-life">Shelf Life (days):</label>
+                <input type="number" id="shelf-life" name="shelf_life" placeholder="Enter shelf life in days" required>
+            </div>
+            
             <button type="submit">Add Food</button>
         </form>
         {% if expired_foods %}
         <h3>Expired Foods</h3>
-        <ul>
-            {% for food in expired_foods %}
-            <li class="food-item food-expired">{{ food.name }} - Expires on: {{ food.expiry_date }}</li>
-            {% endfor %}
-        </ul>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Label</th>
+                    <th>Expiry Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for food in expired_foods %}
+                <tr>
+                    <td>{{ food.name }}</td>
+                    <td>{{ food.label }}</td>
+                    <td>{{ food.expiry_date }}</td>
+                    <td>
+                        <form action="{{ url_for('delete_food', name=food.name) }}" method="post">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
         {% endif %}
         <h3>Food List</h3>
-        <ul>
-            {% for food in foods %}
-            <li class="food-item">
-                {{ food.name }} - Label: {{ food.label }} - Expires on: {{ food.expiry_date }}
-                <form action="{{ url_for('delete_food', name=food.name) }}" method="post">
-                    <button type="submit">Delete</button>
-                </form>
-            </li>
-            {% endfor %}
-        </ul>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Label</th>
+                    <th>Expiry Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for food in foods %}
+                <tr>
+                    <td>{{ food.name }}</td>
+                    <td>{{ food.label }}</td>
+                    <td>{{ food.expiry_date }}</td>
+                    <td>
+                        <form action="{{ url_for('delete_food', name=food.name) }}" method="post">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
         <a href="{{ url_for('dashboard') }}">Show all foods</a>
     </section>
 

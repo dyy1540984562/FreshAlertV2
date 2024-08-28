@@ -1,1 +1,9 @@
-{"_default": {"1": {"username": "hanhandi", "password": "hanhandi", "foods": [{"name": "dasda", "label": "\u98df\u7269", "production_date": "2024-08-03", "expiry_date": "2024-08-14"}, {"name": "fsdfsd", "label": "\u98df\u7269", "production_date": "2024-08-18", "expiry_date": "2025-03-28"}]}}}
+{
+    "_default": {
+        "1": {
+            "username": "hanhandi",
+            "password": "hanhandi",
+            "foods": []
+        }
+    }
+}
