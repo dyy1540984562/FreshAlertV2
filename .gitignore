@@ -1,2 +1,3 @@
-*.json
-*.pyc
+*.log
+secret_key.py
+foods_db.json
